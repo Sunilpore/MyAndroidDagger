@@ -17,10 +17,4 @@ public abstract class ActivityBuildersModule {
     abstract AuthActivity contributeAuthActivity();
 
 
-
-    @Provides
-    static String someString(){
-        return "test STRING value";
-    }
-
 }
