@@ -1,5 +1,6 @@
 package com.androiddaggereg.di;
 
+import com.androiddaggereg.di.auth.AuthModule;
 import com.androiddaggereg.di.auth.AuthViewModelsModule;
 import com.androiddaggereg.ui.auth.AuthActivity;
 import com.androiddaggereg.ui.auth.AuthViewModel;
@@ -20,7 +21,7 @@ public abstract class ActivityBuildersModule {
      * @@ContributesAndroidInjector ->define all activities injection abstract method
      */
     @ContributesAndroidInjector(
-            modules = {AuthViewModelsModule.class}
+            modules = {AuthViewModelsModule.class, AuthModule.class}
     )
     abstract AuthActivity contributeAuthActivity();
 
