@@ -20,6 +20,8 @@ import dagger.android.support.AndroidSupportInjectionModule;
 )
 public interface AppComponent extends AndroidInjector<BaseApplication> {
 
+   // ActivityBuildersModule.AuthActivitySubcomponent.Factory authSubComponent();
+
     @Component.Builder
     interface Builder {
 
