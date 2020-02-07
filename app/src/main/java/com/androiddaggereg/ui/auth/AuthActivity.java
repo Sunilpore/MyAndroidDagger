@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.androiddaggereg.R;
@@ -38,19 +39,46 @@ public class AuthActivity extends DaggerAppCompatActivity implements View.OnClic
 
     AuthViewModel authViewModel;
 
+    private ProgressBar mProgressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth_main);
 
         edUserId = findViewById(R.id.user_id_input);
+        mProgressBar = findViewById(R.id.progress_bar);
+
         findViewById(R.id.login_button).setOnClickListener(this);
         authViewModel = ViewModelProviders.of(this,providerFactory).get(AuthViewModel.class);
 
-        authViewModel.observeUser().observe(this, new Observer<User>() {
+        authViewModel.observeUser().observe(this, new Observer<AuthResource<User>>() {
             @Override
-            public void onChanged(User user) {
-                Toast.makeText(AuthActivity.this, "login success: "+user.getEmail(), Toast.LENGTH_SHORT).show();
+            public void onChanged(AuthResource<User> userAuthResource) {
+
+                if(userAuthResource != null){
+                    switch (userAuthResource.status){
+
+                        case LOADING:{
+                            isShowProgressBar(true);
+                            break;
+                        }
+                        case AUTHENTICATED:{
+                            Toast.makeText(AuthActivity.this, "authentication success: "+userAuthResource.data.getUsername(), Toast.LENGTH_SHORT).show();
+                            isShowProgressBar(false);
+                            break;
+                        }
+                        case ERROR:{
+                            isShowProgressBar(false);
+                            Toast.makeText(AuthActivity.this, userAuthResource.message, Toast.LENGTH_SHORT).show();
+                            break;
+                        }
+                        case NOT_AUTHENTICATED:{
+                            isShowProgressBar(false);
+                            break;
+                        }
+                    }
+                }
             }
         });
 
@@ -61,6 +89,14 @@ public class AuthActivity extends DaggerAppCompatActivity implements View.OnClic
         requestManager
                 .load(logo)
                 .into((ImageView) findViewById(R.id.login_logo));
+    }
+
+    private void isShowProgressBar(boolean isVisible){
+        if(isVisible){
+            mProgressBar.setVisibility(View.VISIBLE);
+        } else {
+            mProgressBar.setVisibility(View.GONE);
+        }
     }
 
     @Override
