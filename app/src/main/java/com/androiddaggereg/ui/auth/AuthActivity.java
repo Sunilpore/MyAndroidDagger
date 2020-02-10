@@ -52,7 +52,7 @@ public class AuthActivity extends DaggerAppCompatActivity implements View.OnClic
         findViewById(R.id.login_button).setOnClickListener(this);
         authViewModel = ViewModelProviders.of(this,providerFactory).get(AuthViewModel.class);
 
-        authViewModel.observeUser().observe(this, new Observer<AuthResource<User>>() {
+        authViewModel.observeAuthState().observe(this, new Observer<AuthResource<User>>() {
             @Override
             public void onChanged(AuthResource<User> userAuthResource) {
 

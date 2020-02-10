@@ -3,6 +3,7 @@ package com.androiddaggereg.di;
 import android.app.Application;
 
 import com.androiddaggereg.BaseApplication;
+import com.androiddaggereg.network.SessionManager;
 
 import javax.inject.Singleton;
 
@@ -21,6 +22,8 @@ import dagger.android.support.AndroidSupportInjectionModule;
 public interface AppComponent extends AndroidInjector<BaseApplication> {
 
    // ActivityBuildersModule.AuthActivitySubcomponent.Factory authSubComponent();
+
+    SessionManager getSessionManager();
 
     @Component.Builder
     interface Builder {
