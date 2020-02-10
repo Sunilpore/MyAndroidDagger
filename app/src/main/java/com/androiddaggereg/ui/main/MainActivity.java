@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.androiddaggereg.BaseActivity;
 import com.androiddaggereg.R;
+import com.androiddaggereg.ui.main.profile.ProfileFragment;
 
 public class MainActivity extends BaseActivity {
 
@@ -20,9 +21,14 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toast.makeText(this, "Welcome to MainActivity.....", Toast.LENGTH_SHORT).show();
+        testFragment();
     }
 
+    private void testFragment(){
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.main_container, new ProfileFragment())
+                .commit();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

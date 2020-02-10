@@ -21,8 +21,6 @@ import dagger.android.support.AndroidSupportInjectionModule;
 )
 public interface AppComponent extends AndroidInjector<BaseApplication> {
 
-   // ActivityBuildersModule.AuthActivitySubcomponent.Factory authSubComponent();
-
     SessionManager getSessionManager();
 
     @Component.Builder
