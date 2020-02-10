@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import com.androiddaggereg.R;
 import com.androiddaggereg.models.User;
+import com.androiddaggereg.ui.main.MainActivity;
 import com.androiddaggereg.utils.LogHelper;
 import com.androiddaggereg.viewmodels.ViewModelProviderFactory;
 import com.bumptech.glide.RequestManager;
@@ -66,6 +68,7 @@ public class AuthActivity extends DaggerAppCompatActivity implements View.OnClic
                         case AUTHENTICATED:{
                             Toast.makeText(AuthActivity.this, "authentication success: "+userAuthResource.data.getUsername(), Toast.LENGTH_SHORT).show();
                             isShowProgressBar(false);
+                            onLoginSuccess();
                             break;
                         }
                         case ERROR:{
@@ -89,6 +92,12 @@ public class AuthActivity extends DaggerAppCompatActivity implements View.OnClic
         requestManager
                 .load(logo)
                 .into((ImageView) findViewById(R.id.login_logo));
+    }
+
+    private void onLoginSuccess(){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private void isShowProgressBar(boolean isVisible){

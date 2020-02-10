@@ -4,6 +4,7 @@ import com.androiddaggereg.di.auth.AuthModule;
 import com.androiddaggereg.di.auth.AuthViewModelsModule;
 import com.androiddaggereg.ui.auth.AuthActivity;
 import com.androiddaggereg.ui.auth.AuthViewModel;
+import com.androiddaggereg.ui.main.MainActivity;
 
 import dagger.Binds;
 import dagger.Module;
@@ -24,6 +25,10 @@ public abstract class ActivityBuildersModule {
             modules = {AuthViewModelsModule.class, AuthModule.class}
     )
     abstract AuthActivity contributeAuthActivity();
+
+    @ContributesAndroidInjector
+    abstract MainActivity contributeMainActivity();
+
 
     //---------------------------***-------------------------//
         /*Below code is internally generated code.

@@ -9,7 +9,9 @@ import com.androiddaggereg.ui.auth.AuthResource;
 import com.androiddaggereg.utils.LogHelper;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
+@Singleton
 public class SessionManager {
 
     //Here we use MediatorLiveData instead of RawData to observe the authenticate user from any class where we inject the session manager in it
@@ -20,9 +22,11 @@ public class SessionManager {
     public SessionManager() {}
 
     public void authenticateWithId(final LiveData<AuthResource<User>> source){
-        LogHelper.showLogData("authenticate user....");
+        LogHelper.showLogData("authenticate user...."+cacheUser);
         if(cacheUser !=null){
             cacheUser.setValue(AuthResource.<User>loading(null));
+
+
             cacheUser.addSource(source, new Observer<AuthResource<User>>() {
                 @Override
                 public void onChanged(AuthResource<User> userAuthResource) {
@@ -34,7 +38,7 @@ public class SessionManager {
     }
 
     public void logOut(){
-        LogHelper.showLogData("User logout....");
+        LogHelper.showLogData("User logout...."+cacheUser);
         cacheUser.setValue(AuthResource.<User>logout());
     }
 
