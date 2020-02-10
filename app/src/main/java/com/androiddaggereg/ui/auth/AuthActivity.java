@@ -66,7 +66,6 @@ public class AuthActivity extends DaggerAppCompatActivity implements View.OnClic
                             break;
                         }
                         case AUTHENTICATED:{
-                            Toast.makeText(AuthActivity.this, "authentication success: "+userAuthResource.data.getUsername(), Toast.LENGTH_SHORT).show();
                             isShowProgressBar(false);
                             onLoginSuccess();
                             break;
