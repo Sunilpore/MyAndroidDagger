@@ -3,6 +3,8 @@ package com.androiddaggereg.di;
 import android.app.Application;
 
 import com.androiddaggereg.BaseApplication;
+import com.androiddaggereg.di.app.AppModule;
+import com.androiddaggereg.di.app.ViewModules;
 import com.androiddaggereg.network.SessionManager;
 
 import javax.inject.Singleton;
@@ -17,6 +19,7 @@ import dagger.android.support.AndroidSupportInjectionModule;
         modules = {AndroidSupportInjectionModule.class,
                     ActivityBuildersModule.class,
                     AppModule.class,
+                    ViewModules.class,
         ViewModelFactoryModule.class}
 )
 public interface AppComponent extends AndroidInjector<BaseApplication> {

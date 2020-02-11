@@ -1,6 +1,7 @@
-package com.androiddaggereg.di;
+package com.androiddaggereg.di.app;
 
 import android.app.Application;
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 
 import androidx.core.content.ContextCompat;
@@ -21,6 +22,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
 public class AppModule {
+
+    @Provides
+    static Context provideContext(Application application){
+        return application.getBaseContext();
+    }
 
     @Singleton
     @Provides

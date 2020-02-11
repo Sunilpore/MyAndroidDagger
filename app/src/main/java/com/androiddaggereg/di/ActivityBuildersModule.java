@@ -3,6 +3,7 @@ package com.androiddaggereg.di;
 import com.androiddaggereg.di.auth.AuthModule;
 import com.androiddaggereg.di.auth.AuthViewModelsModule;
 import com.androiddaggereg.di.main.MainFragmentBuildersModule;
+import com.androiddaggereg.di.main.MainModule;
 import com.androiddaggereg.di.main.MainViewModelsModule;
 import com.androiddaggereg.ui.auth.AuthActivity;
 import com.androiddaggereg.ui.main.MainActivity;
@@ -23,7 +24,7 @@ public abstract class ActivityBuildersModule {
     abstract AuthActivity contributeAuthActivity();
 
     @ContributesAndroidInjector(
-            modules = {MainFragmentBuildersModule.class, MainViewModelsModule.class}
+            modules = {MainFragmentBuildersModule.class, MainViewModelsModule.class, MainModule.class}
     )
     abstract MainActivity contributeMainActivity();
 
