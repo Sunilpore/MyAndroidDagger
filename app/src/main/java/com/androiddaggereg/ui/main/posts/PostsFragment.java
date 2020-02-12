@@ -91,13 +91,12 @@ public class PostsFragment extends DaggerFragment {
 
     private void initRecyclerView(){
 
-        //postsRv.setLayoutManager(new LinearLayoutManager(getActivity()));
-        // VerticalSpacingItemDecoration itemDecoration = new VerticalSpacingItemDecoration(15);
+        postsRv.setLayoutManager(new LinearLayoutManager(getActivity()));
+        VerticalSpacingItemDecoration itemDecoration = new VerticalSpacingItemDecoration(15);
 
-        verticalSpacingItemDecoration.setVerticalSpaceHeight(15);
-
-        postsRv.setLayoutManager(linearLayoutManager);
-        postsRv.addItemDecoration(verticalSpacingItemDecoration);
+        //erticalSpacingItemDecoration.setVerticalSpaceHeight(15);
+        //postsRv.setLayoutManager(linearLayoutManager);
+        postsRv.addItemDecoration(itemDecoration);
         postsRv.setAdapter(adapter);
     }
 
