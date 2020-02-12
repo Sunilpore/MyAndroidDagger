@@ -1,6 +1,5 @@
 package com.androiddaggereg.ui.auth;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -20,9 +19,9 @@ import com.androiddaggereg.ui.main.MainActivity;
 import com.androiddaggereg.utils.LogHelper;
 import com.androiddaggereg.viewmodels.ViewModelProviderFactory;
 import com.bumptech.glide.RequestManager;
-import com.bumptech.glide.request.RequestOptions;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import dagger.android.support.DaggerAppCompatActivity;
 
@@ -38,6 +37,14 @@ public class AuthActivity extends DaggerAppCompatActivity implements View.OnClic
 
     @Inject
     ViewModelProviderFactory providerFactory;
+
+    @Inject
+    @Named("auth_user")
+    User authUser;
+
+    @Inject
+    @Named("app_user")
+    User appUser;
 
     AuthViewModel authViewModel;
 
@@ -84,6 +91,7 @@ public class AuthActivity extends DaggerAppCompatActivity implements View.OnClic
             }
         });
 
+        LogHelper.showLogData("authuser: "+authUser+" \tappuser: "+ appUser);
         setLogo();
     }
 

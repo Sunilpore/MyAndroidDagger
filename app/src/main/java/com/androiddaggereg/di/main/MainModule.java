@@ -15,6 +15,7 @@ public class MainModule {
         return new PostsRecyclerAdapter();
     }
 
+    @MainScope
     @Provides
     static MainApi provideMainApi(Retrofit retrofit){
         return retrofit.create(MainApi.class);

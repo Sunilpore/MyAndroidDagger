@@ -20,8 +20,8 @@ import io.reactivex.schedulers.Schedulers;
 
 public class AuthViewModel extends ViewModel {
 
-    private AuthApi authApi;
-    private SessionManager sessionManager;
+    private AuthApi authApi;       //@AuthScope scoped dependency
+    private SessionManager sessionManager;  //@Singleton scoped dependency
 
 
     @Inject

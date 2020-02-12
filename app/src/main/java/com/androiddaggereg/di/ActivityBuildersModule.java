@@ -1,9 +1,11 @@
 package com.androiddaggereg.di;
 
 import com.androiddaggereg.di.auth.AuthModule;
+import com.androiddaggereg.di.auth.AuthScope;
 import com.androiddaggereg.di.auth.AuthViewModelsModule;
 import com.androiddaggereg.di.main.MainFragmentBuildersModule;
 import com.androiddaggereg.di.main.MainModule;
+import com.androiddaggereg.di.main.MainScope;
 import com.androiddaggereg.di.main.MainViewModelsModule;
 import com.androiddaggereg.ui.auth.AuthActivity;
 import com.androiddaggereg.ui.main.MainActivity;
@@ -18,11 +20,13 @@ public abstract class ActivityBuildersModule {
      *
      * @@ContributesAndroidInjector ->define all activities injection abstract method
      */
+    @AuthScope
     @ContributesAndroidInjector(
             modules = {AuthViewModelsModule.class, AuthModule.class}
     )
     abstract AuthActivity contributeAuthActivity();
 
+    @MainScope
     @ContributesAndroidInjector(
             modules = {MainFragmentBuildersModule.class, MainViewModelsModule.class, MainModule.class}
     )
