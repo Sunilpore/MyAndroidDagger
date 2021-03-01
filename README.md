@@ -12,5 +12,6 @@ Android Scope Reference:-
 -https://medium.com/androiddevelopers/scoping-in-android-and-hilt-c2e5222317c0
 
 Topic Covered
-- Dagger Hilt Constructor Injection Issue
-- Dagger Hilt Constructor Injection Solution (Using @Binds, @Provides annotations)
+- Dagger Hilt Constructor Injection Issue [di/HiltIssues]
+- Dagger Hilt Constructor Injection Solution (Using @Binds, @Provides annotations) [di/HiltIssues]
+- Dagger Hilt Scoping @NamedScope Annotation alternative (Custom Qualifiers) [di/HiltScopes]

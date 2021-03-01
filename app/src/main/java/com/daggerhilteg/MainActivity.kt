@@ -20,6 +20,7 @@ import dagger.hilt.android.scopes.ActivityScoped
 import dagger.hilt.android.scopes.FragmentScoped
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Inject
+import javax.inject.Qualifier
 import javax.inject.Singleton
 
 /**
@@ -29,10 +30,6 @@ import javax.inject.Singleton
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    //field injection
-    /*@Inject
-    lateinit var gsonProviderUtils: GsonProviderUtils*/
-
     @Inject
     lateinit var somClass: SomClass
 
@@ -40,10 +37,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        println(somClass.getAThing())
-        println(somClass.getAnotherThing())
+        val stringOne = somClass.getAThing1()
+        println("hilt_op1 $stringOne")
 
-        println("obj_loc: $somClass")
+        val stringTwo = somClass.getAThing2()
+        println("hilt_op2 $stringTwo")
+
+        println("hilt_op_obj_loc: $somClass")
 
     }
 
@@ -62,17 +62,6 @@ class MyFragment(): Fragment() {
     }
 }
 
-
-//-----------------------****-------------------------//
-
-
-//Gson Provider Dependency
-/*class GsonProviderUtils
-@Inject
-constructor(private val gson: Gson){
-    fun getGsonData() = "Gson data"
-}*/
-
 //-----------------------****-------------------------//
 
 //@ActivityScoped
@@ -80,27 +69,35 @@ constructor(private val gson: Gson){
 class SomClass
 @Inject
 constructor(
-   private val someInterfaceImpl: SomeInterface
+    @Impl1 private val someInterfaceImpl1: SomeInterface,
+    @Impl2 private val someInterfaceImpl2: SomeInterface
 ){
 
-    fun getAThing() = "Hi, It is a random string."
+    fun getAThing1() = "Look ${someInterfaceImpl1.getAnotherThing()}."
 
-    fun getAnotherThing() = someInterfaceImpl.getAnotherThing()
+    fun getAThing2() = "Look ${someInterfaceImpl2.getAnotherThing()}."
+
 }
 
 
-//Constructor Injection
-class SomeInterfaceImpl
+//Different classes with Constructor Injection having same method of implementation
+class SomeInterfaceImpl1
 @Inject
-constructor(
-        private var someDependencyValue:String
-): SomeInterface {
+constructor(): SomeInterface {
 
     override fun getAnotherThing(): String {
-        return "Hi, It is another ${someDependencyValue} dependency"
+        return "It is another random dependency 1"
     }
+}
 
-    //fun getAnotherThing() = "Hi, It is another random string"
+
+class SomeInterfaceImpl2
+@Inject
+constructor(): SomeInterface {
+
+    override fun getAnotherThing(): String {
+        return "It is another random dependency 2"
+    }
 }
 
 
@@ -111,45 +108,33 @@ interface SomeInterface{
 //-----------------------****-------------------------//
 //Solution for Dagger-Hilt Constructor Injection
 
-//-->Method1 (with @Binds)
 
-//@InstallIn(SingletonComponent::class) //application level annotation(previously used as ApplicationComponent which is deprecated now)
-/*@InstallIn(ActivityComponent::class) //activity level annotation
-@Module
-abstract class MyModule {
-
-    //@Singleton
-    @ActivityScoped
-    @Binds
-    abstract fun bindSomeDependency(someInterfaceImpl: SomeInterfaceImpl): SomeInterface
-
-    @ActivityScoped
-    @Binds
-    abstract fun bindGson(gson: Gson):Gson
-
-}*/
-
-//-->Method2 (with @Provides)
+//-->Method (with @Provides)
 @InstallIn(SingletonComponent::class)
 @Module
 class MyModule{
 
+    @Impl1
     @Singleton
     @Provides
-    fun provideSomeString():String{
-        return "Android Jet Pack"
+    fun provideSomeInterface1():SomeInterface{
+        return SomeInterfaceImpl1()
     }
 
+    @Impl2
     @Singleton
     @Provides
-    fun provideSomeInterface(someString:String):SomeInterface{
-        return SomeInterfaceImpl(someString)
+    fun provideSomeInterface2():SomeInterface{
+        return SomeInterfaceImpl2()
     }
 
-
-    @Singleton
-    @Provides
-    fun provideGson(): Gson{
-        return Gson()
-    }
 }
+
+//Add Qualifiers Instead of @NameScope
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class Impl1
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class Impl2
