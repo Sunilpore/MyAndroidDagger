@@ -13,3 +13,4 @@ Android Scope Reference:-
 
 Topic Covered
 - Dagger Hilt Constructor Injection Issue
+- Dagger Hilt Constructor Injection Solution (Using @Binds, @Provides annotations)
