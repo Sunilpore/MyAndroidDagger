@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+    id 'kotlin-android-extensions'
 }
 
 android {
@@ -52,9 +53,20 @@ dependencies {
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
 
+    def hilt_viewmodels = "1.0.0-alpha01"
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hilt_viewmodels"
+    kapt "androidx.hilt:hilt-compiler:$hilt_viewmodels"
+
     // Retrofit
     def retrofitVersion = "2.9.0"
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+
+    def room = "2.2.5"
+    implementation "androidx.room:room-runtime:$room"
+    implementation "androidx.room:room-ktx:$room"
+    kapt "androidx.room:room-compiler:$room"
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.2.1'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.2.1'
 
 }

@@ -1,23 +1,14 @@
 package com.daggerhilteg
 
 import android.os.Bundle
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
-import android.view.Menu
-import android.view.MenuItem
 import androidx.fragment.app.Fragment
-import com.google.gson.Gson
-import dagger.Binds
+import com.daggerhilteg.ui.MainFragment
+import com.daggerhilteg.ui.MainFragmentFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.components.ActivityComponent
-import dagger.hilt.android.components.ApplicationComponent
-import dagger.hilt.android.internal.managers.ApplicationComponentManager
-import dagger.hilt.android.scopes.ActivityScoped
-import dagger.hilt.android.scopes.FragmentScoped
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Inject
 import javax.inject.Qualifier
@@ -28,14 +19,22 @@ import javax.inject.Singleton
  */
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class SecondaryActivity : AppCompatActivity() {
 
     @Inject
     lateinit var somClass: SomClass
 
+    @Inject
+    lateinit var fragmentFactory: MainFragmentFactory
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_secondary)
+
+        supportFragmentManager.fragmentFactory = fragmentFactory
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.secondary_fragment_container, MainFragment::class.java,null)
+            .commit()
 
         val stringOne = somClass.getAThing1()
         println("hilt_op1 $stringOne")
