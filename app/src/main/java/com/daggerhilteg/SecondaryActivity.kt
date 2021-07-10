@@ -3,8 +3,8 @@ package com.daggerhilteg
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.daggerhilteg.ui.MainFragment
-import com.daggerhilteg.ui.MainFragmentFactory
+import com.daggerhilteg.framework.presentation.MainFragment
+import com.daggerhilteg.framework.presentation.MainFragmentFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
